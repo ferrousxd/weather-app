@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="WeatherTableViewCell" customModule="WeatherApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Feels like" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lOp-Br-VNr">
+                        <rect key="frame" x="83.5" y="14.5" width="70" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.77258547387941923" green="0.77258547387941923" blue="0.77258547387941923" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Desc" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oZP-nO-Jm7">
+                        <rect key="frame" x="169.5" y="14.5" width="134.5" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Temp" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UzC-TY-eTF">
+                        <rect key="frame" x="16" y="10.5" width="57.5" height="29"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="UzC-TY-eTF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10.5" id="2FE-6Y-Wst"/>
+                    <constraint firstAttribute="bottom" secondItem="lOp-Br-VNr" secondAttribute="bottom" constant="14.5" id="6ak-IV-C34"/>
+                    <constraint firstItem="UzC-TY-eTF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="7yz-sH-FFv"/>
+                    <constraint firstAttribute="bottom" secondItem="UzC-TY-eTF" secondAttribute="bottom" constant="10.5" id="9nN-Ed-Ntk"/>
+                    <constraint firstItem="oZP-nO-Jm7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="14.5" id="DFe-GE-3wY"/>
+                    <constraint firstItem="oZP-nO-Jm7" firstAttribute="leading" secondItem="lOp-Br-VNr" secondAttribute="trailing" constant="16" id="DOd-k4-bbR"/>
+                    <constraint firstItem="lOp-Br-VNr" firstAttribute="leading" secondItem="UzC-TY-eTF" secondAttribute="trailing" constant="10" id="civ-CQ-LZD"/>
+                    <constraint firstAttribute="trailing" secondItem="oZP-nO-Jm7" secondAttribute="trailing" constant="16" id="kNI-4x-Tmh"/>
+                    <constraint firstAttribute="bottom" secondItem="oZP-nO-Jm7" secondAttribute="bottom" constant="14.5" id="q2S-Fa-iSX"/>
+                    <constraint firstItem="lOp-Br-VNr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="14.5" id="uyX-UQ-W4B"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" red="0.0" green="0.69570706760000001" blue="0.99999969170000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <connections>
+                <outlet property="desc" destination="oZP-nO-Jm7" id="xXW-tj-KFb"/>
+                <outlet property="feelsLike" destination="lOp-Br-VNr" id="A8r-Gp-c10"/>
+                <outlet property="temperature" destination="UzC-TY-eTF" id="sjc-f4-2Z4"/>
+            </connections>
+            <point key="canvasLocation" x="-42.028985507246382" y="152.67857142857142"/>
+        </tableViewCell>
+    </objects>
+</document>
