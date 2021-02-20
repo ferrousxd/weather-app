@@ -25,6 +25,7 @@ class WeatherViewController: UIViewController {
     var data: Model?
     
     private var decoder: JSONDecoder = JSONDecoder()
+    private var dateFormatter = DateFormatter()
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(true, animated: false)
@@ -32,6 +33,8 @@ class WeatherViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        dateFormatter.dateFormat = "dd-MM"
         
         tableView.tableFooterView = UIView()
         tableView.allowsSelection = false
@@ -47,19 +50,13 @@ class WeatherViewController: UIViewController {
     }
     
     func fetchData() {
-        guard let currentCity = currentCity else {
-            return
-        }
+        guard let currentCity = currentCity else { return }
         let url = Constants.host + "&lat=\(currentCity.latitude)&lon=\(currentCity.longtitude)"
         AF.request(url).responseJSON { (response) in
             switch response.result {
             case .success(_):
-                guard let responseData = response.data else {
-                    return
-                }
-                guard let answer = try? self.decoder.decode(Model.self, from: responseData) else {
-                    return
-                }
+                guard let responseData = response.data else { return }
+                guard let answer = try? self.decoder.decode(Model.self, from: responseData) else { return }
                 self.data = answer
                 self.updateUI()
             case .failure(let err):
@@ -78,7 +75,7 @@ class WeatherViewController: UIViewController {
     }
     
     @IBAction func changeCityButtonTapped(_ sender: Any) {
-        let changeCityViewController = storyboard?.instantiateViewController(identifier: "ChangeCityViewController") as! ChangeCityViewController
+        let changeCityViewController = storyboard?.instantiateViewController(identifier: Constants.Storyboard.changeCityVC) as! ChangeCityViewController
         changeCityViewController.delegate = self
         navigationController?.pushViewController(changeCityViewController, animated: true)
     }
@@ -127,6 +124,11 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
         cell.temperature.text = "\(item?.temp?.day ?? 0.0)"
         cell.feelsLike.text = "\(item?.feels_like?.day ?? 0.0)"
         cell.desc.text = item?.weather?.first?.description
+        
+        if let dt = item?.dt {
+            let date = Date(timeIntervalSince1970: dt)
+            cell.date.text = dateFormatter.string(from: date)
+        }
         
         return cell
     }

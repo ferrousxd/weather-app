@@ -26,6 +26,7 @@ struct Current: Codable {
 struct Daily: Codable {
     
     let temp: Temp?
+    let dt: Double?
     let feels_like: Temp?
     let weather: [Weather]?
 }

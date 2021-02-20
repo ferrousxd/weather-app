@@ -12,6 +12,7 @@ class WeatherTableViewCell: UITableViewCell {
     @IBOutlet weak var temperature: UILabel!
     @IBOutlet weak var feelsLike: UILabel!
     @IBOutlet weak var desc: UILabel!
+    @IBOutlet weak var date: UILabel!
     
     static let identifier = String(describing: WeatherTableViewCell.self)
     static let nib = UINib(nibName: identifier, bundle: nil)

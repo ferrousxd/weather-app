@@ -17,6 +17,12 @@ struct Constants {
         "Kyiv": Coordinates(latitude: "50.4333", longtitude: "30.5167"),
         "Minsk": Coordinates(latitude: "53.9", longtitude: "27.5667")
     ]
+    
+    struct Storyboard {
+        
+        static let changeCityVC = "ChangeCityViewController"
+        static let weatherVC = "WeatherViewController"
+    }
 }
 
 struct Coordinates: Equatable {
