@@ -8,6 +8,10 @@
 import UIKit
 import Alamofire
 
+protocol WeatherViewControllerDelegate {
+    func changeCity(_ cityCoordinates: Coordinates)
+}
+
 class WeatherViewController: UIViewController {
     
     @IBOutlet weak var cityName: UILabel!
@@ -17,22 +21,18 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var tableView: UITableView!
     
-    static var currentCity: String?
-
-    let url = Constants.host
+    var currentCity = Constants.cities["Astana"]
     var data: Model?
     
     private var decoder: JSONDecoder = JSONDecoder()
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(true, animated: false)
-        fetchData()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // This is how you remove extra empty cells in TableView
         tableView.tableFooterView = UIView()
         tableView.allowsSelection = false
         tableView.delegate = self
@@ -42,9 +42,15 @@ class WeatherViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(WeatherCollectionViewCell.nib, forCellWithReuseIdentifier: WeatherCollectionViewCell.identifier)
+        
+        fetchData()
     }
     
     func fetchData() {
+        guard let currentCity = currentCity else {
+            return
+        }
+        let url = Constants.host + "&lat=\(currentCity.latitude)&lon=\(currentCity.longtitude)"
         AF.request(url).responseJSON { (response) in
             switch response.result {
             case .success(_):
@@ -69,6 +75,20 @@ class WeatherViewController: UIViewController {
         desc.text = data?.current?.weather?.first?.description
         collectionView.reloadData()
         tableView.reloadData()
+    }
+    
+    @IBAction func changeCityButtonTapped(_ sender: Any) {
+        let changeCityViewController = storyboard?.instantiateViewController(identifier: "ChangeCityViewController") as! ChangeCityViewController
+        changeCityViewController.delegate = self
+        navigationController?.pushViewController(changeCityViewController, animated: true)
+    }
+}
+
+extension WeatherViewController: WeatherViewControllerDelegate {
+    
+    func changeCity(_ cityCoordinates: Coordinates) {
+        currentCity = cityCoordinates
+        fetchData()
     }
 }
 
@@ -107,9 +127,6 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
         cell.temperature.text = "\(item?.temp?.day ?? 0.0)"
         cell.feelsLike.text = "\(item?.feels_like?.day ?? 0.0)"
         cell.desc.text = item?.weather?.first?.description
-        
-        cell.tintColor = .white
-        cell.accessoryType = .checkmark
         
         return cell
     }
